@@ -5,6 +5,8 @@
         <img class="card-img-top mb-3" :src="product.image" :alt="product.title"/>
         <b-card-body>
           <b-card-title>{{ product.title }}</b-card-title>
+          <star-rating :value="product.rating.rate" :max="5" :reviews-count="product.rating.count" />
+          <b-card-subtitle>${{ product.price }}</b-card-subtitle>
         </b-card-body>
       </b-card>
     </b-col>
@@ -15,6 +17,7 @@
 import axios from "axios";
 import {ref} from "vue";
 import {Product} from "../model/Product";
+import StarRating from "./StarRating.vue";
 
 const products = ref<Array<Product>>([])
 const isLoading = ref(true)

@@ -33,14 +33,10 @@ const products = ref<Array<Product>>([])
 const isLoading = ref(true)
 
 onMounted(() => {
-  setTimeout(() => {
-    // Your code to be executed after 5 seconds
-    isLoading.value = false
-  }, 5000);
       axios.get<Array<Product>>('https://fakestoreapi.com/products')
           .then(response => products.value.push(...response.data))
           .catch(error => console.log("Error fetching product list: ", error))
-          .finally(() => isLoading.value = true)
+          .finally(() => isLoading.value = false)
     }
 )
 </script>

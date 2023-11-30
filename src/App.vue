@@ -1,16 +1,11 @@
 <template>
-  <b-container id="app" fluid>
-    <Header/>
+  <div id="app">
     <Page/>
-    <Footer/>
-  </b-container>
+  </div>
 </template>
 
 <script setup lang="ts">
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-import Page from "./components/Page.vue";
-</script>
+import Page from "./components/Page.vue";</script>
 
 <style scoped>
 </style>

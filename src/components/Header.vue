@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <b-row id="header" align-h="end">
       <b-col class="col-3">
         <b-input-group class="mt-3">

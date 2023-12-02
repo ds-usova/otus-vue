@@ -38,7 +38,7 @@ const props = defineProps({
 
 <style scoped>
 .card {
-  border-color: transparent
+  border-color: transparent;
 }
 
 .card-title {

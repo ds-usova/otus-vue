@@ -39,17 +39,16 @@ const props = defineProps({
 <style scoped>
 .card {
   border-color: transparent;
+  padding: 15px;
 }
 
-.card-title {
+.card-body {
+  padding: 10px;
+}
+
+.card-title, .card-subtitle {
   color: rgb(120, 122, 120);
-  text-align: start;
   font-size: 14px;
-}
-
-.card-subtitle {
-  color: rgb(120, 122, 120);
-  font-size: 12px;
   text-align: start;
 }
 </style>

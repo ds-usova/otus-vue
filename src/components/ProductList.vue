@@ -1,10 +1,11 @@
 <template>
-  <b-row id="main-page" class="pt-0">
+  <b-row class="pt-0">
     <b-col v-if="isLoading" class="col-3" v-for="n in 12">
       <product-card>
         <b-spinner type="grow"></b-spinner>
       </product-card>
     </b-col>
+
     <b-col v-if="!isLoading" class="col-3" v-for="(product, index) in products" :key="index">
       <product-card :title="product.title"
                     :rating="product.rating.rate"

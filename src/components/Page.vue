@@ -18,18 +18,18 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import {onMounted, ref} from "vue";
 import {Product} from "../model/Product";
 
 import ProductCard from "./ProductCard.vue";
+import productApiService from "../services/ProductApiService";
 
 const products = ref<Array<Product>>([])
 const isLoading = ref(true)
 
 onMounted(() => {
-      axios.get<Array<Product>>('https://fakestoreapi.com/products')
-          .then(response => products.value.push(...response.data))
+  productApiService.getProducts()
+          .then(data => products.value.push(...data))
           .catch(error => console.log("Error fetching product list: ", error))
           .finally(() => isLoading.value = false)
     }

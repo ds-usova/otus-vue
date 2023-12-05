@@ -1,11 +1,12 @@
 <template>
-  <div id="app">
-    <Page/>
-  </div>
+  <b-container id="app" fluid>
+    <MainPage/>
+  </b-container>
 </template>
 
 <script setup lang="ts">
-import Page from "./components/Page.vue";</script>
+import MainPage from "./pages/MainPage.vue";
+</script>
 
 <style scoped>
 </style>

@@ -38,12 +38,11 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
 import {onMounted, ref} from "vue";
 import {Product} from "../model/Product";
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
+
 import ProductCard from "./ProductCard.vue";
+import productApiService from "../services/ProductApiService";
 
 const products = Array<Product>()
 const filteredProducts = ref(Array<Product>())
@@ -52,11 +51,11 @@ const searchValue = ref('')
 const showFilters = ref(false)
 
 onMounted(() => {
-      axios.get<Array<Product>>('https://fakestoreapi.com/products')
-          .then(response => {
-            products.push(...response.data)
-            initProductsWith(response.data)
-          })
+  productApiService.getProducts()
+      .then(data => {
+        products.push(...data)
+        initProductsWith(data)
+      })
           .catch(error => console.log("Error fetching product list: ", error))
           .finally(() => isLoading.value = false)
     }

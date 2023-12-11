@@ -1,5 +1,4 @@
 <template>
-  <Header :model-value="searchValue" @search-update="handleSearchInput"/>
   <b-container fluid>
     <b-row align-h="start">
       <b-col class="col-4" style="text-align: start; margin-left: 25px;">
@@ -34,41 +33,48 @@
       </b-row>
     </div>
   </b-container>
-  <Footer/>
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {computed, onMounted, onUpdated, ref} from "vue";
 import {Product} from "../model/Product";
 
 import ProductCard from "./ProductCard.vue";
 import productApiService from "../services/ProductApiService";
 
+const props = defineProps({
+  productNameFilter: {type: String, required: true}
+})
+
 const products = Array<Product>()
 const filteredProducts = ref(Array<Product>())
 const isLoading = ref(true)
-const searchValue = ref('')
+const searchValue = computed(() => props.productNameFilter)
 const showFilters = ref(false)
 
 onMounted(() => {
-  productApiService.getProducts()
-      .then(data => {
-        products.push(...data)
-        initProductsWith(data)
-      })
+      productApiService.getProducts()
+          .then(data => {
+            products.push(...data)
+            initProductsWith(data)
+            handleSearchInput()
+          })
           .catch(error => console.log("Error fetching product list: ", error))
           .finally(() => isLoading.value = false)
     }
 )
 
+onUpdated(() => { handleSearchInput() })
+
+function handleSearchInput() {
+  const searchFilter = searchValue.value
+  const newProductList = searchFilter.length == 0 ? products : products.filter(p => p.title.toLowerCase().includes(searchFilter))
+  initProductsWith(newProductList)
+}
+
 function initProductsWith(data) {
   filteredProducts.value.length = 0
   filteredProducts.value.push(...data)
-}
-
-function handleSearchInput(newSearchValue) {
-  const newProductList = products.filter((product) => product.title.toLowerCase().includes(newSearchValue))
-  initProductsWith(newProductList)
 }
 
 function showOrHideFilters() {

@@ -1,7 +1,5 @@
 <template>
-  <b-container id="app" fluid>
-    <MainPage/>
-  </b-container>
+  <MainPage/>
 </template>
 
 <script setup lang="ts">

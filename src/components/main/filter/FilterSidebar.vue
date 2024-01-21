@@ -13,19 +13,18 @@
 
 <script setup lang="ts">
 import PriceFilter from "./PriceFilter.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 interface Emits {
   (e: "filter", value: Filters)
 }
 
 const emits = defineEmits<Emits>()
-const priceFilter = ref({})
-const valid = ref(true)
+const priceFilter = ref({valid: true})
+const valid = computed(() => priceFilter.value.valid)
 
 function price(filter: PriceFilters) {
   priceFilter.value = filter
-  valid.value = valid.value && filter.valid
 }
 
 function submitForm() {

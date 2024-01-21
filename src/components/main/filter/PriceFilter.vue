@@ -1,8 +1,8 @@
 <template>
   <label>Price:</label>
   <b-input-group prepend="$" id="price">
-    <b-form-input id="minPriceValue" v-model="minPriceInput" :state="!v$.minPriceInput.$invalid"/>
-    <b-form-input id="maxPriceValue" v-model="maxPriceInput" :state="!v$.maxPriceInput.$invalid"/>
+    <b-form-input id="minPriceValue" @input="onInput" v-model="minPriceInput" :state="!v$.minPriceInput.$invalid"/>
+    <b-form-input id="maxPriceValue" @input="onInput" v-model="maxPriceInput" :state="!v$.maxPriceInput.$invalid"/>
   </b-input-group>
 </template>
 
@@ -33,7 +33,7 @@ const rules = computed(() => ({
   maxPriceInput: {
     required,
     numeric,
-    between: between(Math.max(minPriceInput.value, minPrice.value), maxPriceInput)
+    between: between(Math.max(minPriceInput.value, minPrice.value), maxPrice.value)
   }
 }))
 
@@ -51,13 +51,13 @@ onMounted(() => {
   })
 })
 
-onUpdated(() => {
+function onInput() {
   emits('filter', {
     minPrice: minPriceInput.value,
     maxPrice: maxPriceInput.value,
     valid: !v$.value.$invalid
   })
-})
+}
 </script>
 
 <style scoped>

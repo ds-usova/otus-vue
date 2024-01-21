@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 import ProductList from "../components/ProductList.vue";
-import Header from "../components/Header.vue";
-import Footer from "../components/Footer.vue";
+import Header from "../components/common/Header.vue";
+import Footer from "../components/common/Footer.vue";
 import {ref} from "vue";
 import FilterSidebar from "../components/FilterSidebar.vue";
 

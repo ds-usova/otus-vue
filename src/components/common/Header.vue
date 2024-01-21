@@ -5,7 +5,7 @@
     </b-navbar-brand>
     <b-nav-form class="d-flex">
       <b-input-group class="mt-3">
-        <b-form-input type="text" placeholder="Search..." :value="props.modelValue"
+        <b-form-input type="text" placeholder="Search..." :value="modelValue"
                       @keydown.enter="$emit('search-update', $event.target.value)">
         </b-form-input>
         <template #prepend>
@@ -18,8 +18,12 @@
   </b-navbar>
 </template>
 
-<script setup>
-const props = defineProps(['modelValue'])
+<script setup lang="ts">
+interface Props {
+  modelValue: string
+}
+
+defineProps<Props>()
 </script>
 
 <style scoped>

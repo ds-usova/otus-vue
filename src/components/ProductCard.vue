@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import StarRating from "./StarRating.vue";
+import StarRating from "./common/StarRating.vue";
 
 const props = defineProps({
   title: {

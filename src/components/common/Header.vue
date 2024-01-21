@@ -5,8 +5,10 @@
     </b-navbar-brand>
     <b-nav-form class="d-flex">
       <b-input-group class="mt-3">
-        <b-form-input type="text" placeholder="Search..." :value="modelValue"
-                      @keydown.enter="$emit('search-update', $event.target.value)">
+        <b-form-input type="text"
+                      placeholder="Search..."
+                      v-model="search"
+                      @keydown.enter="submitSearch">
         </b-form-input>
         <template #prepend>
           <b-input-group-text>
@@ -19,11 +21,18 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  modelValue: string
+import {ref} from "vue";
+
+interface Emits {
+  (e: 'search-update', value: string)
 }
 
-defineProps<Props>()
+const emits = defineEmits<Emits>()
+const search = ref('')
+
+function submitSearch() {
+  emits('search-update', search.value)
+}
 </script>
 
 <style scoped>

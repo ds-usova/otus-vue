@@ -7,10 +7,11 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, onUpdated, ref} from "vue";
-import productApiService from "../../../services/ProductApiService";
+import {computed, onMounted, ref} from "vue";
+import productApi from "../../../services/api/ProductApiService";
 import {between, numeric, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+import productService from "../../../services/service/ProductService";
 
 interface Emits {
   (e: "filter", value: PriceFilters)
@@ -18,11 +19,11 @@ interface Emits {
 
 const emits = defineEmits<Emits>()
 
-const minPrice = ref(productApiService.defaultMinPrice)
-const maxPrice = ref(productApiService.defaultMaxPrice)
+const minPrice = ref(productService.defaultMinPrice)
+const maxPrice = ref(productService.defaultMaxPrice)
 
-const minPriceInput = ref(productApiService.defaultMinPrice)
-const maxPriceInput = ref(productApiService.defaultMaxPrice)
+const minPriceInput = ref(productService.defaultMinPrice)
+const maxPriceInput = ref(productService.defaultMaxPrice)
 
 const rules = computed(() => ({
   minPriceInput: {
@@ -41,11 +42,11 @@ const state = {minPriceInput, maxPriceInput}
 let v$ = useVuelidate(rules, state)
 
 onMounted(() => {
-  productApiService.getMinPrice().then(it => {
+  productApi.getMinPrice().then(it => {
     minPrice.value = it
     minPriceInput.value = it
   })
-  productApiService.getMaxPrice().then(it => {
+  productApi.getMaxPrice().then(it => {
     maxPrice.value = it
     maxPriceInput.value = it
   })

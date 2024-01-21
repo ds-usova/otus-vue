@@ -28,8 +28,6 @@ function price(filter: PriceFilters) {
 }
 
 function submitForm() {
-  console.log('submit')
-  console.log(filter())
   emits('filter', filter())
 }
 

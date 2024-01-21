@@ -1,5 +1,6 @@
 interface Filters {
     priceFilter: PriceFilters
+    nameFilter: string
 }
 
 interface PriceFilters extends Valid {

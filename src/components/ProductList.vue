@@ -6,10 +6,11 @@
   </b-col>
 
   <b-col v-if="!isLoading" v-for="(product, index) in products" :key="index">
-    <product-card :title="product.title"
+    <product-card :id="product.id"
+                  :title="product.title"
                   :rating="product.rating.rate"
                   :ratingMax="5"
-                  :reviews-count="product.rating.count"
+                  :reviewsCount="product.rating.count"
                   :price="product.price">
       <img class="card-img-top mb-3" :src="product.image" :alt="product.title"/>
     </product-card>

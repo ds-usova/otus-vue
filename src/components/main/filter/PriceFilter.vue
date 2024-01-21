@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-import productApi from "../../../services/api/ProductApiService";
+import productApi from "../../../services/api/ProductApi";
 import {between, numeric, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import productService from "../../../services/service/ProductService";

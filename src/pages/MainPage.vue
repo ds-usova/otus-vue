@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-      <Header @search-update="handleSearchInput"/>
+      <Header @search-update="handleSearchInput" render-search="true" />
       <b-row align-h="start">
         <b-col class="col-12" style="text-align: start; margin-left: 25px;">
           <div>
@@ -29,7 +29,7 @@ import Header from "../components/common/Header.vue";
 import Footer from "../components/common/Footer.vue";
 import {onMounted, ref} from "vue";
 import FilterSidebar from "../components/main/filter/FilterSidebar.vue";
-import productApiService from "../services/api/ProductApiService";
+import productApi from "../services/api/ProductApi";
 import {Product} from "../model/Product";
 
 const filtersVisible = ref(false)
@@ -48,7 +48,7 @@ function handleSearchInput(newSearchValue: String) {
 
 function readProducts() {
   isLoading.value = true
-  productApiService.getFilteredProducts(filters.value)
+  productApi.getFilteredProducts(filters.value)
       .then(data => initProductsWith(data))
       .catch(error => console.log("Error fetching product list: ", error))
       .finally(() => isLoading.value = false)

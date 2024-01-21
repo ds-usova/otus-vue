@@ -1,6 +1,6 @@
 import {Product} from "../../model/Product";
 
-export default new class ProductApiService {
+export default new class ProductService {
 
     readonly defaultMinPrice: Number = 0
     readonly defaultMaxPrice: Number = 99_999

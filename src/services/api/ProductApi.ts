@@ -27,13 +27,23 @@ export default new class ProductApi {
     getMaxPrice(): Promise<Number> {
         return this.getProducts()
             .then(products => productService.getMaxPrice(products))
-            .catch( () => productService.defaultMaxPrice)
+            .catch(() => productService.defaultMaxPrice)
     }
 
     getMinPrice(): Promise<Number> {
         return this.getProducts()
             .then(products => productService.getMinPrice(products))
-            .catch( () => productService.defaultMinPrice)
+            .catch(() => productService.defaultMinPrice)
+    }
+
+    getProduct(id: string): Promise<Product> {
+        return axios.get<Product>('https://fakestoreapi.com/products/' + id)
+            .then(({data}) => {
+                return Promise.resolve(data)
+            })
+            .catch((error) => {
+                return Promise.reject(error)
+            })
     }
 
 }

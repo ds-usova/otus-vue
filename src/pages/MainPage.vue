@@ -5,11 +5,13 @@
       <b-row align-h="start">
         <b-col class="col-12" style="text-align: start; margin-left: 25px;">
           <div> <!-- todo: make a component out of this button -->
-            <b-button @click="showOrHideFilters" variant="link" style="text-decoration: none">
+            <b-button @click="showFilters" variant="link" style="text-decoration: none">
               <font-awesome-icon class="fa-xs" icon="filter"/>
               <span style="margin-left: 5px">Filter</span>
             </b-button>
-            <FilterSidebar :show-filters="showFilters"/>
+            <b-offcanvas v-model="filtersVisible">
+              <filter-sidebar @filter="filterProducts"/>
+            </b-offcanvas>
           </div>
         </b-col>
       </b-row>
@@ -26,17 +28,25 @@ import ProductList from "../components/ProductList.vue";
 import Header from "../components/common/Header.vue";
 import Footer from "../components/common/Footer.vue";
 import {ref} from "vue";
-import FilterSidebar from "../components/FilterSidebar.vue";
+import FilterSidebar from "../components/main/filter/FilterSidebar.vue";
 
 const search = ref('')
-const showFilters = ref(false)
+const filtersVisible = ref(false)
 
 function handleSearchInput(newSearchValue: String) {
   search.value = newSearchValue
 }
 
-function showOrHideFilters() {
-  showFilters.value = !showFilters.value
+function showFilters() {
+  filtersVisible.value = true
+}
+
+function hideFilters() {
+  filtersVisible.value = false
+}
+
+function filterProducts(filters: Filters) {
+  hideFilters()
 }
 </script>
 

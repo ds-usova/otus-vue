@@ -19,18 +19,23 @@
         </b-input-group>
       </b-nav-form>
       <b-navbar-nav class="p-1">
-        <b-button variant="light" class="position-relative pl-2">
+        <b-button @click="openShoppingCart()" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="shopping-cart"/>
           <b-badge variant="dark" text-indicator>{{ itemCount }}</b-badge>
         </b-button>
       </b-navbar-nav>
     </div>
   </b-navbar>
+
+  <b-offcanvas placement="end" v-model="showShoppingCart">
+    <shopping-cart/>
+  </b-offcanvas>
 </template>
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {useShoppingCartStore} from "../../store/schoppintCart";
+import ShoppingCart from "./ShoppingCart.vue";
 
 interface Props {
   renderSearch?: boolean
@@ -47,9 +52,14 @@ const emits = defineEmits<Emits>()
 const search = ref('')
 const shoppingCartStore = useShoppingCartStore()
 const itemCount = computed(() => shoppingCartStore.getProductCount())
+const showShoppingCart = ref(false)
 
 function submitSearch() {
   emits('search-update', search.value)
+}
+
+function openShoppingCart() {
+  showShoppingCart.value = true
 }
 </script>
 

@@ -32,15 +32,16 @@
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import productApi from "../services/api/ProductApi";
-import Header from "../components/common/Header.vue";
 import StarRating from "../components/common/StarRating.vue";
-import shoppingCartService from "../services/service/ShoppingCartService";
+import Header from "../components/common/Header.vue";
+import {useShoppingCartStore} from "../store/schoppintCart";
 
 const route = useRoute()
 const id = String(route.params.id)
 const product = ref({})
 const loaded = ref(false)
 const added = ref(false)
+const shoppingCartStore = useShoppingCartStore()
 
 onMounted(() => {
   product.value = productApi.getProduct(id)
@@ -49,7 +50,7 @@ onMounted(() => {
 })
 
 function addToCart() {
-  shoppingCartService.addItem(product.value)
+  shoppingCartStore.addProduct(product.value)
   added.value = true
 }
 </script>

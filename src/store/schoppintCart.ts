@@ -14,6 +14,10 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
 
         getProductCount(): number {
             return this.products.length
+        },
+
+        getTotal(): number {
+            return this.products.map(it => it.price).reduce((acc, current) => acc + current, 0);
         }
     },
     persist: {

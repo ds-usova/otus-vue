@@ -4,6 +4,14 @@
       <Header/>
     </b-row>
     <b-row>
+      <div class="col-12" ref="errorBanner">
+        <b-alert variant="danger" :model-value="orderSent && !success">
+          Sorry, we are currently unable to process your order. Please try again later. If the issue persists, contact
+          our customer support for assistance. We apologize for any inconvenience.
+        </b-alert>
+      </div>
+    </b-row>
+    <b-row>
       <div class="col-7">
         <b-form @submit="sendOrder">
           <h5>Contact</h5>
@@ -146,7 +154,7 @@
           </b-row>
 
           <b-row class="mt-3 mb-5">
-            <b-button type="submit" :disabled="v$.$invalid" variant="outline-secondary">
+            <b-button type="submit" :disabled="v$.$invalid" variant="outline-dark">
               Send order
             </b-button>
           </b-row>
@@ -179,6 +187,9 @@ import useVuelidate from "@vuelidate/core/dist/index";
 import countryApi from "../services/api/CountryApi";
 import {expirationFormat} from "../validation/rules";
 import {useShoppingCartStore} from "../store/schoppintCart";
+import orderService from "../services/service/OrderService";
+import {useRouter} from "vue-router";
+import {Order} from "../model/Order";
 
 const countries = countryApi.getCountries()
 const shoppingCartStore = useShoppingCartStore()
@@ -199,6 +210,9 @@ const creditCardNumber = ref('')
 const expiration = ref('')
 const cvv = ref('')
 const consent = ref(false)
+
+const orderSent = ref(false)
+const success = ref(false)
 
 const rules = {
   emailAddress: {required, email},
@@ -231,9 +245,32 @@ const state = {
   consent
 }
 const v$ = useVuelidate(rules, state)
+const router = useRouter()
+
+const errorBanner = ref(null)
 
 function sendOrder() {
-
+  console.log('sending order...')
+  orderSent.value = true
+  success.value = orderService.sendOrder(new Order(
+      emailAddress.value,
+      country.value,
+      firstName.value,
+      lastName.value,
+      postalCode.value,
+      city.value,
+      address.value,
+      birthday.value,
+      nameOnCard.value,
+      creditCardNumber.value,
+      expiration.value,
+      cvv.value
+  ))
+  if (success.value) {
+    router.push('success')
+  } else {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
 }
 </script>
 

@@ -12,7 +12,6 @@ export const expirationFormat = (value) => {
     }
 
     const currentMonth = currentDate.getMonth() + 1
-    const currentYear = Number(currentDate.getFullYear().toString().substring(3))
-    console.log(month + ' ' + year + ' ' + currentDate.getMonth() + ' ' + currentYear)
+    const currentYear = Number(currentDate.getFullYear().toString().substring(2))
     return year > currentYear || (year === currentYear && month >= currentMonth)
 }

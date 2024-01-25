@@ -52,11 +52,14 @@ onMounted(() => {
   })
 })
 
-function onInput() {
+async function onInput() {
+  await v$.value.minPriceInput.$validate()
+  await v$.value.maxPriceInput.$validate()
+  const isValid = !v$.value.$invalid
   emits('filter', {
     minPrice: minPriceInput.value,
     maxPrice: maxPriceInput.value,
-    valid: !v$.value.$invalid
+    valid: isValid
   })
 }
 </script>

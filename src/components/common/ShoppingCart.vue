@@ -30,14 +30,15 @@
 <script setup lang="ts">
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import {useRouter} from "vue-router";
+import {computed, ref} from "vue";
 
 const shoppingCart = useShoppingCartStore()
-const products = shoppingCart.products
-const emptyCart = products.length == 0
+const products = ref(shoppingCart.products)
+const emptyCart = computed(() => products.value.length == 0)
 const router = useRouter()
 
 function toCheckout() {
-  router.push('checkout')
+  router.push('/checkout')
 }
 </script>
 

@@ -9,6 +9,7 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
@@ -17,7 +18,7 @@ import router from "./router/router"
 import {createPinia} from "pinia"
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
-library.add(fasStar, faStarHalf, farStar, faMagnifyingGlass, faFilter, faCartShopping)
+library.add(fasStar, faStarHalf, farStar, faMagnifyingGlass, faFilter, faCartShopping, faPlus)
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)

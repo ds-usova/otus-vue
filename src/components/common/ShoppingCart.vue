@@ -15,9 +15,12 @@
       </b-col>
       <b-col class="col-6">
         <span>{{ orderItem.product.title }}</span>
+        <counter-input class="w-75 mt-2"
+                       v-model="orderItem.count"
+                       :minValue="0"/>
       </b-col>
       <b-col class="col-4">
-        <span>{{ orderItem.count }} x ${{ orderItem.product.price }}</span>
+        <span>${{ orderItem.product.price }}</span>
       </b-col>
     </b-row>
 
@@ -31,6 +34,7 @@
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import {useRouter} from "vue-router";
 import {computed, ref} from "vue";
+import CounterInput from "./CounterInput.vue";
 
 const shoppingCart = useShoppingCartStore()
 const orderItems = ref(shoppingCart.orderItems)

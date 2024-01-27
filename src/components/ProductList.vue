@@ -1,43 +1,39 @@
 <template>
-  <b-row class="pt-0">
-    <b-col v-if="isLoading" class="col-3" v-for="n in 12">
-      <product-card>
-        <b-spinner type="grow"></b-spinner>
-      </product-card>
-    </b-col>
+  <b-col v-if="isLoading" v-for="i in 12">
+    <product-card>
+      <b-spinner type="grow"></b-spinner>
+    </product-card>
+  </b-col>
 
-    <b-col v-if="!isLoading" class="col-3" v-for="(product, index) in products" :key="index">
-      <product-card :title="product.title"
-                    :rating="product.rating.rate"
-                    :ratingMax="5"
-                    :reviews-count="product.rating.count"
-                    :price="product.price">
-        <img class="card-img-top mb-3" :src="product.image" :alt="product.title"/>
-      </product-card>
-    </b-col>
-  </b-row>
+  <b-col v-if="!isLoading" v-for="(product, index) in products" :key="index">
+    <product-card :id="product.id"
+                  :title="product.title"
+                  :rating="product.rating.rate"
+                  :ratingMax="5"
+                  :reviewsCount="product.rating.count"
+                  :price="product.price">
+      <img class="card-img-top mb-3" :src="product.image" :alt="product.title"/>
+    </product-card>
+  </b-col>
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
 import {Product} from "../model/Product";
-
 import ProductCard from "./ProductCard.vue";
-import productApiService from "../services/ProductApiService";
 
-const products = ref<Array<Product>>([])
-const isLoading = ref(true)
+interface Props {
+  isLoading: boolean
+  products: Array<Product>
+}
 
-onMounted(() => {
-  productApiService.getProducts()
-          .then(data => products.value.push(...data))
-          .catch(error => console.log("Error fetching product list: ", error))
-          .finally(() => isLoading.value = false)
-    }
-)
+const props = defineProps<Props>()
 </script>
 
 <style scoped>
+span, button {
+  color: rgb(120, 122, 120);
+}
+
 .card-img-top {
   width: 100%;
   height: 200px;

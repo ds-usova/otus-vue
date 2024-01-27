@@ -1,11 +1,8 @@
 <template>
-  <b-container id="app" fluid>
-    <MainPage/>
-  </b-container>
+  <router-view/>
 </template>
 
 <script setup lang="ts">
-import MainPage from "./pages/MainPage.vue";
 </script>
 
 <style scoped>

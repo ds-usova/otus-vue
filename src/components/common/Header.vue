@@ -1,7 +1,7 @@
 <template>
   <b-navbar class="mt-2">
     <b-navbar-brand href="/">
-      Homework #3
+      Homework #4
     </b-navbar-brand>
     <div class="d-flex justify-content-end">
       <b-nav-form v-if="renderSearch">

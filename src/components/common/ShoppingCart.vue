@@ -9,15 +9,15 @@
     <b-row>
       <span>Shopping cart</span>
     </b-row>
-    <b-row class="mt-4" v-for="product in products">
-      <b-col class="col-3">
-        <img class="product-img" :src="product.image" :alt="product.title"/>
-      </b-col>
-      <b-col class="col-7">
-        <span>{{ product.title }}</span>
-      </b-col>
+    <b-row class="mt-4" v-for="orderItem in orderItems">
       <b-col class="col-2">
-        <span>${{ product.price }}</span>
+        <img class="product-img" :src="orderItem.product.image" :alt="orderItem.product.title"/>
+      </b-col>
+      <b-col class="col-6">
+        <span>{{ orderItem.product.title }}</span>
+      </b-col>
+      <b-col class="col-4">
+        <span>{{ orderItem.count }} x ${{ orderItem.product.price }}</span>
       </b-col>
     </b-row>
 
@@ -33,8 +33,8 @@ import {useRouter} from "vue-router";
 import {computed, ref} from "vue";
 
 const shoppingCart = useShoppingCartStore()
-const products = ref(shoppingCart.products)
-const emptyCart = computed(() => products.value.length == 0)
+const orderItems = ref(shoppingCart.orderItems)
+const emptyCart = computed(() => orderItems.value.length == 0)
 const router = useRouter()
 
 function toCheckout() {

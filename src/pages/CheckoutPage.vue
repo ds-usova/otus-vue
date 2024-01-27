@@ -13,7 +13,7 @@
     </b-row>
     <b-row>
       <div class="col-7">
-        <create-order-form @submit="sendOrder" />
+        <create-order-form @submit="sendOrder"/>
       </div>
 
       <div class="col-5">

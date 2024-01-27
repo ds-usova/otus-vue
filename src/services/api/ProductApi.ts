@@ -26,7 +26,7 @@ export default new class ProductApi {
 
     add(product: Product) {
         axios.post('https://httpbin.org/post', product)
-            .then(() => console.log('order added...'))
+            .then(() => console.log('product added...'))
     }
 
     getMaxPrice(): Promise<Number> {

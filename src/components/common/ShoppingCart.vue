@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="emptyCart">
+  <b-container v-if="cartIsEmpty">
     <b-row>
       <span>Your shopping cart is empty</span>
     </b-row>
@@ -7,7 +7,14 @@
 
   <b-container v-else>
     <b-row>
-      <span>Shopping cart</span>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span>Shopping cart</span>
+        </div>
+        <div>
+          <b-button variant="link" @click="emptyCart">Empty cart</b-button>
+        </div>
+      </div>
     </b-row>
     <b-row class="mt-4" v-for="orderItem in orderItems">
       <b-col class="col-2">
@@ -39,7 +46,7 @@ import CounterInput from "./CounterInput.vue";
 
 const shoppingCart = useShoppingCartStore()
 const orderItems = computed(() => shoppingCart.orderItems)
-const emptyCart = computed(() => shoppingCart.orderItems.length == 0)
+const cartIsEmpty = computed(() => shoppingCart.orderItems.length == 0)
 const router = useRouter()
 
 function toCheckout() {
@@ -48,6 +55,10 @@ function toCheckout() {
 
 function updateShoppingCart() {
   shoppingCart.deleteItemsWithZeroCount()
+}
+
+function emptyCart() {
+  shoppingCart.emptyCart()
 }
 </script>
 

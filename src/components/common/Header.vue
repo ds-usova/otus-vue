@@ -22,7 +22,7 @@
         <b-button @click="openAddNewProductPage()" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="plus"/>
         </b-button>
-        <b-button @click="openShoppingCart()" variant="light" class="position-relative pl-2">
+        <b-button @click="openShoppingCart()" v-if="renderShoppingCart" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="shopping-cart"/>
           <b-badge variant="dark" text-indicator>{{ itemCount }}</b-badge>
         </b-button>
@@ -43,6 +43,7 @@ import {useRouter} from "vue-router";
 
 interface Props {
   renderSearch?: boolean
+  renderShoppingCart?: boolean
 }
 
 interface Emits {
@@ -50,7 +51,8 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  renderSearch: false
+  renderSearch: false,
+  renderShoppingCart: true
 })
 const emits = defineEmits<Emits>()
 const search = ref('')

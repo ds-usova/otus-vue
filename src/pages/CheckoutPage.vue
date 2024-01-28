@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <Header/>
+      <Header :renderShoppingCart="false" />
     </b-row>
     <b-row>
       <div class="col-12" ref="errorBanner">

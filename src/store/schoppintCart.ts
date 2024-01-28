@@ -32,7 +32,7 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
             return this.orderItems.find((it) => it.product.id == id)
         },
 
-        clearCart() {
+        emptyCart() {
             this.orderItems = []
         },
 

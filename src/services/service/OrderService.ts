@@ -10,7 +10,7 @@ export default new class OrderService {
         orderApi.sendOrder(orderItems, order)
         const isSuccess = Math.random() < 0.5
         if (isSuccess) {
-            shoppingCartStore.clearCart()
+            shoppingCartStore.emptyCart()
         }
         return isSuccess
     }

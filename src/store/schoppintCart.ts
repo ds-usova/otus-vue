@@ -34,6 +34,10 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
 
         clearCart() {
             this.orderItems = []
+        },
+
+        deleteItemsWithZeroCount() {
+            this.orderItems = this.orderItems.filter((it) => it.count > 0)
         }
     },
     persist: {

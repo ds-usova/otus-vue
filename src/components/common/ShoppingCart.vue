@@ -16,6 +16,7 @@
       <b-col class="col-6">
         <span>{{ orderItem.product.title }}</span>
         <counter-input class="w-75 mt-2"
+                       @minValueReached="updateShoppingCart"
                        v-model="orderItem.count"
                        :minValue="0"/>
       </b-col>
@@ -33,16 +34,20 @@
 <script setup lang="ts">
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import {useRouter} from "vue-router";
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import CounterInput from "./CounterInput.vue";
 
 const shoppingCart = useShoppingCartStore()
-const orderItems = ref(shoppingCart.orderItems)
-const emptyCart = computed(() => orderItems.value.length == 0)
+const orderItems = computed(() => shoppingCart.orderItems)
+const emptyCart = computed(() => shoppingCart.orderItems.length == 0)
 const router = useRouter()
 
 function toCheckout() {
   router.push('/checkout')
+}
+
+function updateShoppingCart() {
+  shoppingCart.deleteItemsWithZeroCount()
 }
 </script>
 

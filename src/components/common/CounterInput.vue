@@ -14,7 +14,6 @@
 import {computed, defineModel} from "vue";
 
 interface Emits {
-  (e: 'update:modelValue', value: number)
   (e: 'minValueReached', value: number)
   (e: 'maxValueReached', value: number)
 }
@@ -33,15 +32,17 @@ const minValueReached = computed(() => input.value == props.minValue)
 const maxValueReached = computed(() => input.value == props.maxValue)
 
 function decrement() {
-  input.value--
-  if (minValueReached.value) {
+  const newValue = input.value - 1
+  input.value = newValue
+  if (newValue == props.minValue) {
     emits('minValueReached')
   }
 }
 
 function increment() {
-  input.value++
-  if (maxValueReached.value) {
+  const newValue = input.value + 1
+  input.value = newValue
+  if (newValue == props.maxValue) {
     emits('maxValueReached')
   }
 }

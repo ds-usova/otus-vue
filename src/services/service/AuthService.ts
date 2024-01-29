@@ -8,4 +8,9 @@ export default new class AuthService {
         userDataStore.username = user.username
     }
 
+    logout() {
+        const userDataStore = useUserDataStore()
+        userDataStore.username = ''
+    }
+
 }

@@ -41,6 +41,6 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
         }
     },
     persist: {
-        storage: sessionStorage
+        storage: localStorage
     }
 })

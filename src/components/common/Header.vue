@@ -22,6 +22,9 @@
         <b-button @click="openAddNewProductPage()" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="plus"/>
         </b-button>
+        <b-button @click="openUserProfile()" variant="light" class="position-relative pl-2">
+          <font-awesome-icon class="fa-xs mr-1" :icon="['far', 'user']"/>
+        </b-button>
         <b-button @click="openShoppingCart()" v-if="renderShoppingCart" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="shopping-cart"/>
           <b-badge variant="dark" text-indicator>{{ itemCount }}</b-badge>
@@ -40,6 +43,7 @@ import {computed, ref} from "vue";
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import ShoppingCart from "./ShoppingCart.vue";
 import {useRouter} from "vue-router";
+import {useUserDataStore} from "../../store/userData";
 
 interface Props {
   renderSearch?: boolean
@@ -60,6 +64,7 @@ const shoppingCartStore = useShoppingCartStore()
 const itemCount = computed(() => shoppingCartStore.getProductCount())
 const showShoppingCart = ref(false)
 const router = useRouter()
+const userDataStore = useUserDataStore()
 
 function submitSearch() {
   emits('search-update', search.value)
@@ -71,6 +76,14 @@ function openShoppingCart() {
 
 function openAddNewProductPage() {
   router.push('/new-product')
+}
+
+function openUserProfile() {
+  if (userDataStore.loggedIn) {
+    router.push('/profile')
+  } else {
+    router.push('/login')
+  }
 }
 </script>
 

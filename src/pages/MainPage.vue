@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <b-container>
-      <Header @search-update="handleSearchInput" render-search="true" />
-      <b-row align-h="start">
-        <b-col class="col-12" style="text-align: start; margin-left: 25px;">
-          <div>
-            <b-button @click="showFilters" variant="link" style="text-decoration: none">
-              <font-awesome-icon class="fa-xs" icon="filter"/>
-              <span style="margin-left: 5px">Filter</span>
-            </b-button>
-            <b-offcanvas v-model="filtersVisible">
-              <filter-sidebar @filter="filterProducts"/>
-            </b-offcanvas>
-          </div>
-        </b-col>
-      </b-row>
-      <b-row class="pt-0" cols="4">
-        <product-list :isLoading="isLoading" :products="products"/>
-      </b-row>
-      <Footer/>
-    </b-container>
-  </div>
+  <b-container>
+    <b-row>
+      <Header @search-update="handleSearchInput" render-search="true"/>
+    </b-row>
+    <b-row align-h="start">
+      <b-col class="col-12" style="text-align: start; margin-left: 25px;">
+        <div>
+          <b-button @click="showFilters" variant="link" style="text-decoration: none">
+            <font-awesome-icon class="fa-xs" icon="filter"/>
+            <span style="margin-left: 5px">Filter</span>
+          </b-button>
+          <b-offcanvas v-model="filtersVisible">
+            <filter-sidebar @filter="filterProducts"/>
+          </b-offcanvas>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row class="pt-0" cols="4">
+      <product-list :isLoading="isLoading" :products="products"/>
+    </b-row>
+    <Footer/>
+  </b-container>
 </template>
 
 <script setup lang="ts">
@@ -40,7 +40,7 @@ const isLoading = ref(true)
 onMounted(() => readProducts())
 
 function handleSearchInput(newSearchValue: String) {
-  filters.value= {
+  filters.value = {
     nameFilter: newSearchValue
   }
   readProducts()

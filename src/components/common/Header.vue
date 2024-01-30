@@ -19,7 +19,7 @@
         </b-input-group>
       </b-nav-form>
       <b-navbar-nav class="p-1">
-        <b-button @click="openAddNewProductPage()" variant="light" class="position-relative pl-2">
+        <b-button @click="openAddNewProductPage()" v-if="userData.isAdmin" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="plus"/>
         </b-button>
         <b-button @click="openUserProfile()" variant="light" class="position-relative pl-2">
@@ -64,7 +64,7 @@ const shoppingCartStore = useShoppingCartStore()
 const itemCount = computed(() => shoppingCartStore.getProductCount())
 const showShoppingCart = ref(false)
 const router = useRouter()
-const userDataStore = useUserDataStore()
+const userData = useUserDataStore()
 
 function submitSearch() {
   emits('search-update', search.value)
@@ -79,7 +79,7 @@ function openAddNewProductPage() {
 }
 
 function openUserProfile() {
-  if (userDataStore.loggedIn) {
+  if (userData.loggedIn) {
     router.push('/profile')
   } else {
     router.push('/login')

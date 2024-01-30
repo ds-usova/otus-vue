@@ -32,6 +32,12 @@ const routes = [
         path: "/new-product",
         name: "new-product",
         component: () => import('../pages/NewProductPage.vue'),
+        beforeEnter: (to, from) => {
+            const userData = useUserDataStore()
+            if (!userData.isAdmin) {
+                return {name: 'main'}
+            }
+        }
     },
     {path: "/login", name: "login", component: () => import('../pages/LoginPage.vue')},
     {path: "/profile", name: "profile", component: () => import('../pages/UserProfilePage.vue')},

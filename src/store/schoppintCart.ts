@@ -8,6 +8,9 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
             orderItems: []
         }
     },
+    getters: {
+        cartIsEmpty: state => state.orderItems.length === 0
+    },
     actions: {
         addProduct(product: Product) {
             const productToUpdate = this.findById(product.id)

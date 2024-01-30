@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import MainPage from "../pages/MainPage.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 import {useShoppingCartStore} from "../store/schoppintCart";
+import {useUserDataStore} from "../store/userData";
 
 const routes = [
     {path: "/", name: "main", component: MainPage},
@@ -12,7 +13,7 @@ const routes = [
         component: () => import('../pages/CheckoutPage.vue'),
         beforeEnter: (to, from) => {
             const shoppingCart = useShoppingCartStore()
-            if (shoppingCart.orderItems.length == 0) {
+            if (shoppingCart.cartIsEmpty) {
                 return {name: "main"}
             }
         }

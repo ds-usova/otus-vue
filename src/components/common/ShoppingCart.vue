@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="cartIsEmpty">
+  <b-container v-if="shoppingCart.cartIsEmpty">
     <b-row>
       <span>Your shopping cart is empty</span>
     </b-row>
@@ -46,7 +46,6 @@ import CounterInput from "./CounterInput.vue";
 
 const shoppingCart = useShoppingCartStore()
 const orderItems = computed(() => shoppingCart.orderItems)
-const cartIsEmpty = computed(() => shoppingCart.orderItems.length == 0)
 const router = useRouter()
 
 function toCheckout() {

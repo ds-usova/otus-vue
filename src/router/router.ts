@@ -5,8 +5,22 @@ import {useShoppingCartStore} from "../store/schoppintCart";
 import {useUserDataStore} from "../store/userData";
 
 const routes = [
-    {path: "/", name: "main", component: MainPage},
-    {path: "/product/:id", name: "product", component: () => import('../pages/ProductPage.vue')},
+    {
+        path: "/",
+        name: "main",
+        component: MainPage,
+        meta: {
+            authNotRequired: true
+        }
+    },
+    {
+        path: "/product/:id",
+        name: "product",
+        component: () => import('../pages/ProductPage.vue'),
+        meta: {
+            authNotRequired: true
+        }
+    },
     {
         path: "/checkout",
         name: "checkout",
@@ -48,15 +62,36 @@ const routes = [
             if (userData.loggedIn) {
                 return {name: 'main'}
             }
+        },
+        meta: {
+            authNotRequired: true
         }
     },
-    {path: "/profile", name: "profile", component: () => import('../pages/UserProfilePage.vue')},
-    {path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundPage},
+    {
+        path: "/profile",
+        name: "profile",
+        component: () => import('../pages/UserProfilePage.vue')
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: NotFoundPage,
+        meta: {
+            authNotRequired: true
+        }
+    },
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
 });
+
+router.beforeEach((to, from) => {
+    const userData = useUserDataStore()
+    if (!userData.loggedIn && !to.meta.authNotRequired) {
+        return {name: 'login'}
+    }
+})
 
 export default router;

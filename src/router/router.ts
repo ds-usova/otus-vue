@@ -39,7 +39,17 @@ const routes = [
             }
         }
     },
-    {path: "/login", name: "login", component: () => import('../pages/LoginPage.vue')},
+    {
+        path: "/login",
+        name: "login",
+        component: () => import('../pages/LoginPage.vue'),
+        beforeEnter: (to, from) => {
+            const userData = useUserDataStore()
+            if (userData.loggedIn) {
+                return {name: 'main'}
+            }
+        }
+    },
     {path: "/profile", name: "profile", component: () => import('../pages/UserProfilePage.vue')},
     {path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundPage},
 ];

@@ -1,11 +1,11 @@
-import {Product} from "../../model/Product";
 import {Order} from "../../model/Order";
 import axios from "axios";
+import OrderItem from "../../model/OrderItem";
 
 export default new class OrderApi {
 
-    sendOrder(products: Array<Product>, order: Order) {
-        axios.post('https://httpbin.org/post', {products, order})
+    sendOrder(orderItems: Array<OrderItem>, order: Order) {
+        axios.post('https://httpbin.org/post', {orderItems: orderItems, order})
             .then(() => console.log('order sent...'))
     }
 

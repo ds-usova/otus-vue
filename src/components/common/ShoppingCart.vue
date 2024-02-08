@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="emptyCart">
+  <b-container v-if="shoppingCart.cartIsEmpty">
     <b-row>
       <span>Your shopping cart is empty</span>
     </b-row>
@@ -7,17 +7,28 @@
 
   <b-container v-else>
     <b-row>
-      <span>Shopping cart</span>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span>Shopping cart</span>
+        </div>
+        <div>
+          <b-button variant="link" @click="emptyCart">Empty cart</b-button>
+        </div>
+      </div>
     </b-row>
-    <b-row class="mt-4" v-for="product in products">
-      <b-col class="col-3">
-        <img class="product-img" :src="product.image" :alt="product.title"/>
-      </b-col>
-      <b-col class="col-7">
-        <span>{{ product.title }}</span>
-      </b-col>
+    <b-row class="mt-4" v-for="orderItem in orderItems">
       <b-col class="col-2">
-        <span>${{ product.price }}</span>
+        <img class="product-img" :src="orderItem.product.image" :alt="orderItem.product.title"/>
+      </b-col>
+      <b-col class="col-6">
+        <span>{{ orderItem.product.title }}</span>
+        <counter-input class="w-75 mt-2"
+                       @minValueReached="updateShoppingCart"
+                       v-model="orderItem.count"
+                       :minValue="0"/>
+      </b-col>
+      <b-col class="col-4">
+        <span>${{ orderItem.product.price }}</span>
       </b-col>
     </b-row>
 
@@ -30,15 +41,23 @@
 <script setup lang="ts">
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import {useRouter} from "vue-router";
-import {computed, ref} from "vue";
+import {computed} from "vue";
+import CounterInput from "./CounterInput.vue";
 
 const shoppingCart = useShoppingCartStore()
-const products = ref(shoppingCart.products)
-const emptyCart = computed(() => products.value.length == 0)
+const orderItems = computed(() => shoppingCart.orderItems)
 const router = useRouter()
 
 function toCheckout() {
   router.push('/checkout')
+}
+
+function updateShoppingCart() {
+  shoppingCart.deleteItemsWithZeroCount()
+}
+
+function emptyCart() {
+  shoppingCart.emptyCart()
 }
 </script>
 

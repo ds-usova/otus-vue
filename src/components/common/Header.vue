@@ -1,7 +1,7 @@
 <template>
   <b-navbar class="mt-2">
     <b-navbar-brand href="/">
-      Homework #3
+      Homework #4
     </b-navbar-brand>
     <div class="d-flex justify-content-end">
       <b-nav-form v-if="renderSearch">
@@ -19,10 +19,13 @@
         </b-input-group>
       </b-nav-form>
       <b-navbar-nav class="p-1">
-        <b-button @click="openAddNewProductPage()" variant="light" class="position-relative pl-2">
+        <b-button @click="openAddNewProductPage()" v-if="userData.isAdmin" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="plus"/>
         </b-button>
-        <b-button @click="openShoppingCart()" variant="light" class="position-relative pl-2">
+        <b-button @click="openUserProfile()" variant="light" class="position-relative pl-2">
+          <font-awesome-icon class="fa-xs mr-1" :icon="['far', 'user']"/>
+        </b-button>
+        <b-button @click="openShoppingCart()" v-if="renderShoppingCart" variant="light" class="position-relative pl-2">
           <font-awesome-icon class="fa-xs mr-1" icon="shopping-cart"/>
           <b-badge variant="dark" text-indicator>{{ itemCount }}</b-badge>
         </b-button>
@@ -40,9 +43,11 @@ import {computed, ref} from "vue";
 import {useShoppingCartStore} from "../../store/schoppintCart";
 import ShoppingCart from "./ShoppingCart.vue";
 import {useRouter} from "vue-router";
+import {useUserDataStore} from "../../store/userData";
 
 interface Props {
   renderSearch?: boolean
+  renderShoppingCart?: boolean
 }
 
 interface Emits {
@@ -50,7 +55,8 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  renderSearch: false
+  renderSearch: false,
+  renderShoppingCart: true
 })
 const emits = defineEmits<Emits>()
 const search = ref('')
@@ -58,6 +64,7 @@ const shoppingCartStore = useShoppingCartStore()
 const itemCount = computed(() => shoppingCartStore.getProductCount())
 const showShoppingCart = ref(false)
 const router = useRouter()
+const userData = useUserDataStore()
 
 function submitSearch() {
   emits('search-update', search.value)
@@ -69,6 +76,14 @@ function openShoppingCart() {
 
 function openAddNewProductPage() {
   router.push('/new-product')
+}
+
+function openUserProfile() {
+  if (userData.loggedIn) {
+    router.push('/profile')
+  } else {
+    router.push('/login')
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <Header/>
+      <Header :renderShoppingCart="false" />
     </b-row>
     <b-row>
       <div class="col-12" ref="errorBanner">
@@ -20,8 +20,8 @@
         <h5>Your cart</h5>
         <b-card no-body>
           <b-list-group flush>
-            <b-list-group-item v-for="product in products" class="d-flex justify-content-between align-items-center">
-              {{ product.title }} <span>${{ product.price }}</span>
+            <b-list-group-item v-for="orderItem in orderItems" class="d-flex justify-content-between align-items-center">
+              {{ orderItem.product.title }} <span>{{ orderItem.count }} x ${{ orderItem.product.price }}</span>
             </b-list-group-item>
           </b-list-group>
 
@@ -45,7 +45,7 @@ import CreateOrderForm from "../components/order/CreateOrderForm.vue";
 
 const shoppingCartStore = useShoppingCartStore()
 
-const products = shoppingCartStore.products
+const orderItems = shoppingCartStore.orderItems
 const total = shoppingCartStore.getTotal()
 
 const orderSent = ref(false)
